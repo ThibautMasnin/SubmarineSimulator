@@ -117,6 +117,11 @@ public class MyGLEventListener implements GLEventListener
 
 		/////////////////////////////////////////////////////////////////////////////////
 		//TO FILL
+		Repere repere = new Repere(3,3,3);
+		repere.draw(gl);
+
+		HeliceSM helice = new HeliceSM(0,0,0);
+		helice.draw(gl);
 
 //---------------------------------------------------------------------------------------------
 		gl.glPushMatrix();

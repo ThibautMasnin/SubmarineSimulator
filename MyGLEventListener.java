@@ -1,6 +1,5 @@
 package SubmarineSimulator;
 
-import com.jogamp.newt.event.MouseEvent;
 import com.jogamp.opengl.*;
 import com.jogamp.newt.Window;
 import com.jogamp.newt.event.awt.AWTKeyAdapter;
@@ -21,7 +20,8 @@ public class MyGLEventListener implements GLEventListener
 	//////////////////////////////////////////////////////////////////////////////////////////////:
 	// TO FILL
 	private float translation = 0f;
-	private float vitesse = 0.1f;
+	private float deplacement = 0.1f;
+	private float positionVerticale = 0.0f;
 	//...
 
 
@@ -119,21 +119,31 @@ public class MyGLEventListener implements GLEventListener
 
 //---------------------------------------------------------------------------------------------
 		gl.glPushMatrix();
-		gl.glTranslatef(translation, 0.0f, 0.0f);
+		gl.glTranslatef(translation, positionVerticale, 0.0f);
 		glut.glutSolidTeapot(1);
 		gl.glPopMatrix();
 //-------------------------------------------------------------------------------------------
 
 	}
 
+	public void monter()
+	{
+		positionVerticale += deplacement;
+	}
+
+	public void descendre()
+	{
+		positionVerticale -= deplacement;
+	}
+
 	public void avancer()
 	{
-		translation += vitesse;
+		translation += deplacement;
 	}
 
 	public void reculer()
 	{
-		translation -= vitesse;
+		translation -= deplacement;
 	}
 
 	/**

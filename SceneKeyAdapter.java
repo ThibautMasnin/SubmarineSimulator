@@ -1,17 +1,15 @@
 package SubmarineSimulator;
 
-
 import com.jogamp.newt.event.KeyAdapter;
 import com.jogamp.newt.event.KeyEvent;
 
-
-class SceneKeyAdapter extends KeyAdapter {
+class SceneKeyAdapter extends KeyAdapter
+{
 
     private float view_rotx, view_roty;
     private float zoom = 1;
 
     private MyGLEventListener myGLEventListener;
-
 
     public SceneKeyAdapter (MyGLEventListener _myGLEventListener) {
         myGLEventListener = _myGLEventListener;
@@ -29,11 +27,22 @@ class SceneKeyAdapter extends KeyAdapter {
         view_roty = myGLEventListener.getView_roty();
 
 //        Ctrl = 17 -> descendre
-//        Maj = 15
-//        Z = 90
-//        S = 83
-//        Q = 81
-//        D = 68
+//        Maj = 15 -> monter
+//        Z = 90 -> avancer
+//        S = 83 -> reculer
+//        Q = 81 -> gauche
+//        D = 68 -> droite
+
+
+        if(15 == kc) {
+            //Maj est tapé, on monte
+            myGLEventListener.monter();
+        }
+
+        if(17 == kc) {
+            //Ctrl est tapé, on descend
+            myGLEventListener.descendre();
+        }
 
         if(83 == kc) {
             //S est tapé, on recule

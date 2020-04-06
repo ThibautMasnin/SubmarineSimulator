@@ -22,6 +22,7 @@ public class MyGLEventListener implements GLEventListener
 	private float translation = 0f;
 	private float deplacement = 0.1f;
 	private float positionVerticale = 0.0f;
+	private float orientation = 0.0f;
 	//...
 
 
@@ -119,11 +120,22 @@ public class MyGLEventListener implements GLEventListener
 
 //---------------------------------------------------------------------------------------------
 		gl.glPushMatrix();
+		gl.glRotatef(orientation,0f,1f,0f);
 		gl.glTranslatef(translation, positionVerticale, 0.0f);
 		glut.glutSolidTeapot(1);
 		gl.glPopMatrix();
 //-------------------------------------------------------------------------------------------
 
+	}
+
+	public void droite()
+	{
+		orientation -= deplacement*5;
+	}
+
+	public void gauche()
+	{
+		orientation += deplacement*5;
 	}
 
 	public void monter()

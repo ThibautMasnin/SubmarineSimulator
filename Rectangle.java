@@ -10,7 +10,6 @@ public class Rectangle {
     private double yB;
     private double zB;
 
-
     public Rectangle(double x, double y, double z, double xb, double yb, double zb) {
         this.x = x;
         this.y = y;
@@ -21,8 +20,6 @@ public class Rectangle {
     }
 
     public void draw(GL2 gl) {
-
-
         /** Face devant **/
         gl.glBegin(GL2.GL_QUADS);
         gl.glColor3d(1, 1, 1);
@@ -31,11 +28,5 @@ public class Rectangle {
         gl.glVertex3d(this.x + xB, this.y - yB, this.z - zB); //V3
         gl.glVertex3d(this.x + xB, this.y + yB, this.z - zB); //V4
         gl.glEnd();
-
-
-    }
-
-    public double getxB() {
-        return xB;
     }
 }

@@ -23,7 +23,6 @@ public class HeliceSM {
 
         double xH = this.x;
 
-
         /** Face devant **/
         gl.glBegin(GL2.GL_QUADS);
         gl.glColor3d(0.9,0.9,0.9);
@@ -77,15 +76,12 @@ public class HeliceSM {
         gl.glVertex3d(xH + xH1, this.y - yH1, this.z + zH1); //V5
         gl.glVertex3d(xH + xH1,this.y - yH1,this.z - zH1); //V3
         gl.glEnd();
-
-
 
         /** HELICE 1 **/
         double xH2 = 0.1;
         double yH2 = 0.1;
         double zH2 = 0.4;
 
-
         /** Face devant **/
         gl.glBegin(GL2.GL_QUADS);
         gl.glColor3d(0.9,0.9,0.9);
@@ -139,6 +135,5 @@ public class HeliceSM {
         gl.glVertex3d(xH + xH2, this.y - yH2, this.z + zH2); //V5
         gl.glVertex3d(xH + xH2,this.y - yH2,this.z - zH2); //V3
         gl.glEnd();
-
     }
 }

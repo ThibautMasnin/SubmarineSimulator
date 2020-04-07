@@ -43,10 +43,16 @@ class SceneKeyAdapter extends KeyAdapter
         if(kc == 81) {
             //Q est tapé, on tourne à gauche
             myGLEventListener.gauche();
+            if(myGLEventListener.getPivH()>-10) {
+                myGLEventListener.changePivH(-2);
+            }
         }
         else if(kc == 68) {
             //D est tapé, on tourne à droite
             myGLEventListener.droite();
+            if(myGLEventListener.getPivH()<10) {
+                myGLEventListener.changePivH(2);
+            }
         }
         else if(kc == 15) {
             //Maj est tapé, on monte
@@ -59,38 +65,50 @@ class SceneKeyAdapter extends KeyAdapter
         else if(kc == 83) {
             //S est tapé, on recule
             myGLEventListener.reculer();
+            if(myGLEventListener.getPivH()>0) {
+                myGLEventListener.changePivH(-2);
+            }
+            else if(myGLEventListener.getPivH()<0) {
+                myGLEventListener.changePivH(2);
+            }
         }
         else if(kc == 90) {
             //Z est tapé, on avance
             myGLEventListener.avancer();
+            if(myGLEventListener.getPivH()>0) {
+                myGLEventListener.changePivH(-1);
+            }
+            else if(myGLEventListener.getPivH()<0) {
+                myGLEventListener.changePivH(1);
+            }
         }
         else if(kc == 32) {
             //Espace est tapé, on tire
             myGLEventListener.tirer();
         }
         else if(kc == 140) {
+            //+ est tapé, on zoome
             zoom += 0.1;
-            //System.out.println("Key pressed: zoom in="+zoom);
         }
         else if(kc == 139) {
+            //- est tapé, on dézoome
             zoom -= 0.1;
-            //System.out.println("Key pressed: zoom out");
         }
         else if(kc == KeyEvent.VK_LEFT) {
-            view_roty -= 1;
-            //System.out.println("Key pressed: view_roty="+view_roty);
+            //Left est tapé, on se déplace vers la gauche
+            view_roty += 1;
         }
         else if(kc == KeyEvent.VK_RIGHT) {
-            view_roty += 1;
-            //System.out.println("Key pressed: view_roty="+view_roty);
+            //Right est tapé, on se déplace vers la droite
+            view_roty -= 1;
         }
         else if(kc == KeyEvent.VK_UP) {
-            view_rotx -= 1;
-            //System.out.println("Key pressed: view_rotx="+view_rotx);
+            //Up est tapé, on se déplace vers le haut
+            view_rotx += 1;
         }
         else if(kc == KeyEvent.VK_DOWN) {
-            view_rotx += 1;
-            //System.out.println("Key pressed: view_rotx="+view_rotx);
+            //Down est tapé, on se déplace vers le bas
+            view_rotx -= 1;
         }
         else {
             System.out.println(e.getKeyCode());
@@ -100,13 +118,4 @@ class SceneKeyAdapter extends KeyAdapter
         myGLEventListener.setView_roty(view_roty);
         myGLEventListener.setScale(zoom);
     }
-
-    public float getScale() {
-        return zoom;
-    }
-
-    public void setScale(float scale) {
-        this.zoom = scale;
-    }
-
 }

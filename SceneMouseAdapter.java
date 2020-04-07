@@ -7,23 +7,19 @@ import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLProfile;
 
 class SceneMouseAdapter extends MouseAdapter {
-      
 	private int prevMouseX, prevMouseY;
 	private float view_rotx, view_roty;
 	private MyGLEventListener myGLEventListener;
 	private float zoom = 0;
 	
-	
 	public SceneMouseAdapter(MyGLEventListener _myGLEventListener) {
 		myGLEventListener = _myGLEventListener;
 	}
 
-	
 	public void mouseWheelMoved() {
 		zoom -= 1;
 		myGLEventListener.setScale(zoom);
 	}
-	
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
@@ -33,12 +29,10 @@ class SceneMouseAdapter extends MouseAdapter {
 
     @Override
 	public void mouseReleased(MouseEvent e) {
-    
     }
 
     @Override
 	public void mouseDragged(MouseEvent e) {
-    	  
         view_rotx = myGLEventListener.getView_rotx();
   		view_roty = myGLEventListener.getView_roty();
   		
@@ -81,6 +75,4 @@ class SceneMouseAdapter extends MouseAdapter {
         myGLEventListener.setView_rotx(view_rotx);
         myGLEventListener.setView_roty(view_roty);
     }
-  	
-
   }

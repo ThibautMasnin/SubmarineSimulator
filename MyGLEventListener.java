@@ -119,27 +119,22 @@ public class MyGLEventListener implements GLEventListener
 
 		/////////////////////////////////////////////////////////////////////////////////
 		//TO FILL
-		Repere repere = new Repere(10,10,10);
-		repere.draw(gl);
 
-		/** Sous marin **/
-		BaseSM base = new BaseSM(0,0,0);
-//		base.draw(gl);
-
-/** Helice **/
-		HeliceSM helice = new HeliceSM(base.xB + 0.15,0,0);
-		gl.glPushMatrix();
-		gl.glRotatef(rotH,1f,0f,0f);
-		helice.draw(gl);
-		gl.glPopMatrix();
-		rotH += 2f;
 
 //---------------------------------------------------------------------------------------------
 		gl.glPushMatrix();
-		gl.glColor3d(1,1,1);
 		gl.glTranslatef(x, y, z);
 		gl.glRotatef(o,0f,1f,0f);
-		glut.glutSolidTeapot(1);
+		/** Repere **/
+		Repere repere = new Repere(10,10,10);
+		repere.draw(gl);
+		/** Sous marin **/
+		BaseSM base = new BaseSM(0,0,0);
+		base.draw(gl);
+		/** Helice **/
+		HeliceSM helice = new HeliceSM(-(base.xB + 0.15),0,0);
+		gl.glRotatef(rotH,1f,0f,0f);
+		helice.draw(gl);
 		gl.glPopMatrix();
 //-------------------------------------------------------------------------------------------
 
@@ -150,8 +145,7 @@ public class MyGLEventListener implements GLEventListener
 		System.out.println(o%360/90);
 	}
 
-	public void gauche()
-	{
+	public void gauche() {
 		o -= deplacement*15;
 		System.out.println((o%360)/90);
 	}
@@ -166,8 +160,8 @@ public class MyGLEventListener implements GLEventListener
 		y -= deplacement;
 	}
 
-	public void avancer()
-	{
+	public void avancer() {
+		rotH += 5f;
 		if((o%360)/90>=-4 && (o%360)/90<=-3) {
 			x = x-deplacement*(3+(o%360)/90);
 			z = z-deplacement*(4+(o%360)/90);
@@ -202,8 +196,8 @@ public class MyGLEventListener implements GLEventListener
 		}
 	}
 
-	public void reculer()
-	{
+	public void reculer() {
+		rotH -= 5f;
 		if((o%360)/90>=-4 && (o%360)/90<=-3) {
 			x = x+deplacement*(3+(o%360)/90);
 			z = z+deplacement*(4+(o%360)/90);

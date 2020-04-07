@@ -1,10 +1,13 @@
 package SubmarineSimulator;
 
+import com.jogamp.newt.event.KeyEvent;
 import com.jogamp.opengl.*;
 import com.jogamp.newt.Window;
 import com.jogamp.newt.event.awt.AWTKeyAdapter;
 import com.jogamp.newt.event.awt.AWTMouseAdapter;
 import com.jogamp.opengl.util.gl2.GLUT;
+
+import java.util.Random;
 
 //Applications implement the GLEventListener interface to perform OpenGL drawing via callbacks.
 public class MyGLEventListener implements GLEventListener
@@ -34,6 +37,10 @@ public class MyGLEventListener implements GLEventListener
 	public float tempx;
 	public float tempy;
 	public float tempz;
+
+	public boolean mouvementAuto = true;
+	public int choixDeplacement;
+	public int nbDeplacement;
 	//...
 
 
@@ -53,12 +60,11 @@ public class MyGLEventListener implements GLEventListener
 
 
 		gl.glClearColor(0.4f, 0.6f, 0.9f, 1f);
-		gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, pos, 2);
+		gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, pos, 0);
 //		gl.glEnable(GL2.GL_CULL_FACE);
 //		gl.glEnable(GL2.GL_LIGHTING);
 //		gl.glEnable(GL2.GL_LIGHT0);
 		gl.glEnable(GL2.GL_DEPTH_TEST);
-
 
 		objectMouse = new SceneMouseAdapter(this);
 		objectKeys = new SceneKeyAdapter(this);
@@ -83,7 +89,8 @@ public class MyGLEventListener implements GLEventListener
 
 		glut = new GLUT();
 		gl.glEnable(GL2.GL_COLOR_MATERIAL);
-
+		choixDeplacement = 0;
+		nbDeplacement = 0;
 		//...
 	}
 
@@ -133,6 +140,10 @@ public class MyGLEventListener implements GLEventListener
 
 //---------------------------------------------------------------------------------------------
 
+		if(mouvementAuto)
+		{
+			deplacerAuto();
+		}
 		gl.glPushMatrix();
 		gl.glPushMatrix();
 		gl.glTranslatef(x, y, z);
@@ -188,6 +199,41 @@ public class MyGLEventListener implements GLEventListener
 
 //-------------------------------------------------------------------------------------------
 
+	}
+
+	public void deplacerAuto()
+	{
+		Random r = new Random();
+		if(nbDeplacement == 10)
+		{
+			choixDeplacement = r.nextInt(5);
+			nbDeplacement = 0;
+		}
+		if(choixDeplacement == 0)
+		{
+			avancer();
+		}
+		else if(choixDeplacement == 1)
+		{
+			reculer();
+		}
+		else if(choixDeplacement == 2)
+		{
+			monter();
+		}
+		else if(choixDeplacement == 3)
+		{
+			descendre();
+		}
+		else if(choixDeplacement == 4)
+		{
+			droite();
+		}
+		else if(choixDeplacement == 5)
+		{
+			gauche();
+		}
+		nbDeplacement++;
 	}
 
 	public void droite() {
@@ -369,5 +415,15 @@ public class MyGLEventListener implements GLEventListener
 	public void setScale(float scale2) {
 		this.scale = scale2;
 		zoomModified = true;
+	}
+
+	public void deplacementManuel()
+	{
+		mouvementAuto = false;
+	}
+
+	public void deplacementAuto()
+	{
+		mouvementAuto = true;
 	}
 }

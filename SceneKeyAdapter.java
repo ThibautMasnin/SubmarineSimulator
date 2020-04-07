@@ -32,6 +32,14 @@ class SceneKeyAdapter extends KeyAdapter
 //        Q = 81 -> gauche
 //        D = 68 -> droite
 
+        if(kc == 77) {
+            myGLEventListener.deplacementManuel();
+        }
+
+        if(kc == 65) {
+            myGLEventListener.deplacementAuto();
+        }
+
         if(kc == 81) {
             //Q est tapé, on tourne à gauche
             myGLEventListener.gauche();

@@ -32,67 +32,60 @@ class SceneKeyAdapter extends KeyAdapter
 //        Q = 81 -> gauche
 //        D = 68 -> droite
 
-        if(81 == kc) {
+        if(kc == 81) {
             //Q est tapé, on tourne à gauche
             myGLEventListener.gauche();
         }
-
-        if(68 == kc) {
+        else if(kc == 68) {
             //D est tapé, on tourne à droite
             myGLEventListener.droite();
         }
-
-        if(15 == kc) {
+        else if(kc == 15) {
             //Maj est tapé, on monte
             myGLEventListener.monter();
         }
-
-        if(17 == kc) {
+        else if(kc == 17) {
             //Ctrl est tapé, on descend
             myGLEventListener.descendre();
         }
-
-        if(83 == kc) {
+        else if(kc == 83) {
             //S est tapé, on recule
             myGLEventListener.reculer();
         }
-
-        if(90 == kc) {
+        else if(kc == 90) {
             //Z est tapé, on avance
             myGLEventListener.avancer();
         }
-
-        if(140 == kc) {
+        else if(kc == 32) {
+            //Espace est tapé, on tire
+            myGLEventListener.tirer();
+        }
+        else if(kc == 140) {
             zoom += 0.1;
             //System.out.println("Key pressed: zoom in="+zoom);
         }
-
-        if(139 == kc) {
+        else if(kc == 139) {
             zoom -= 0.1;
             //System.out.println("Key pressed: zoom out");
         }
-
-        if(KeyEvent.VK_LEFT == kc) {
+        else if(kc == KeyEvent.VK_LEFT) {
             view_roty -= 1;
             //System.out.println("Key pressed: view_roty="+view_roty);
         }
-
-        else if(KeyEvent.VK_RIGHT == kc) {
+        else if(kc == KeyEvent.VK_RIGHT) {
             view_roty += 1;
             //System.out.println("Key pressed: view_roty="+view_roty);
         }
-
-        else if(KeyEvent.VK_UP == kc) {
+        else if(kc == KeyEvent.VK_UP) {
             view_rotx -= 1;
             //System.out.println("Key pressed: view_rotx="+view_rotx);
         }
-
-        else if(KeyEvent.VK_DOWN == kc) {
+        else if(kc == KeyEvent.VK_DOWN) {
             view_rotx += 1;
             //System.out.println("Key pressed: view_rotx="+view_rotx);
         }
         else {
-            //System.out.println(e.getKeyCode());
+            System.out.println(e.getKeyCode());
         }
 
         myGLEventListener.setView_rotx(view_rotx);

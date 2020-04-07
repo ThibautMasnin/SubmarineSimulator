@@ -25,6 +25,15 @@ public class MyGLEventListener implements GLEventListener
 	private float y = 0.0f;
 	private float z = 0.0f;
 	private float o = 0.0f;
+
+	private boolean tire = false;
+	public float p;
+	public float op;
+	public float q;
+	public float oq;
+	public float tempx;
+	public float tempy;
+	public float tempz;
 	//...
 
 
@@ -43,7 +52,7 @@ public class MyGLEventListener implements GLEventListener
 		float red[] = { 0.8f, 0.1f, 0.0f, 0.7f };
 
 
-		gl.glClearColor(0.2f, 0.3f, 0.8f, 0f);
+		gl.glClearColor(0.4f, 0.6f, 0.9f, 1f);
 		gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, pos, 0);
 		gl.glEnable(GL2.GL_CULL_FACE);
 		gl.glEnable(GL2.GL_LIGHTING);
@@ -122,6 +131,8 @@ public class MyGLEventListener implements GLEventListener
 
 
 //---------------------------------------------------------------------------------------------
+
+		gl.glPushMatrix();
 		gl.glPushMatrix();
 		gl.glTranslatef(x, y, z);
 		gl.glRotatef(o,0f,1f,0f);
@@ -136,6 +147,44 @@ public class MyGLEventListener implements GLEventListener
 		gl.glRotatef(rotH,1f,0f,0f);
 		helice.draw(gl);
 		gl.glPopMatrix();
+		/** Torpille **/
+		gl.glPushMatrix();
+		if(tire) {
+			p+=op*2;
+			q+=oq*2;
+			gl.glTranslatef(tempx+p, tempy, tempz+q);
+		}
+		else {
+			gl.glTranslatef(x, y, z);
+			gl.glRotatef(o,0f,1f,0f);
+		}
+		gl.glColor3d(1,0.3,0.2);
+		glut.glutSolidSphere(0.2,5,5);
+		gl.glPopMatrix();
+
+		/** Poissons **/
+		gl.glPushMatrix();
+		gl.glTranslatef(5f, 0f, 0f);
+		gl.glColor3d(0.3,0.8,0.2);
+		glut.glutSolidSphere(0.1,5,5);
+		gl.glPopMatrix();
+		gl.glPushMatrix();
+		gl.glTranslatef(3f, 0f, 4f);
+		gl.glColor3d(1,1,0);
+		glut.glutSolidSphere(0.1,5,5);
+		gl.glPopMatrix();
+		gl.glPushMatrix();
+		gl.glTranslatef(-3f, 0f, 2f);
+		gl.glColor3d(1,0,0);
+		glut.glutSolidSphere(0.1,5,5);
+		gl.glPopMatrix();
+		gl.glPushMatrix();
+		gl.glTranslatef(0f, 0f, -3f);
+		gl.glColor3d(0,0,1);
+		glut.glutSolidSphere(0.1,5,5);
+		gl.glPopMatrix();
+		gl.glPopMatrix();
+
 //-------------------------------------------------------------------------------------------
 
 	}
@@ -232,6 +281,47 @@ public class MyGLEventListener implements GLEventListener
 		}
 	}
 
+	public void tirer() {
+		if(!tire) {
+			tire=true;
+			tempx=x;
+			tempy=y;
+			tempz=z;
+			if((o%360)/90>=-4 && (o%360)/90<=-3) {
+				op = -deplacement*(3+(o%360)/90);
+				oq = -deplacement*(4+(o%360)/90);
+			}
+			else if((o%360)/90>=-3 && (o%360)/90<=-2) {
+				op = -deplacement*(3+(o%360)/90);
+				oq = deplacement*(2+(o%360)/90);
+			}
+			else if((o%360)/90>=-2 && (o%360)/90<=-1) {
+				op = deplacement*(1+(o%360)/90);
+				oq = deplacement*(2+(o%360)/90);
+			}
+			else if((o%360)/90>=-1 && (o%360)/90<=0) {
+				op = deplacement*(1+(o%360)/90);
+				oq = -deplacement*((o%360)/90);
+			}
+			else if((o%360)/90>=0 && (o%360)/90<=1) {
+				op = deplacement*(1-(o%360)/90);
+				oq = -deplacement*((o%360)/90);
+			}
+			else if((o%360)/90>=1 && (o%360)/90<=2) {
+				op = deplacement*(1-(o%360)/90);
+				oq = -deplacement*(2-(o%360)/90);
+			}
+			else if((o%360)/90>=2 && (o%360)/90<=3) {
+				op = -deplacement*(3-(o%360)/90);
+				oq = -deplacement*(2-(o%360)/90);
+			}
+			else if((o%360)/90>=3 && (o%360)/90<=4) {
+				op = -deplacement*(3-(o%360)/90);
+				oq = deplacement*(4-(o%360)/90);
+			}
+		}
+	}
+
 	/**
 	 * Method to update the scene wrt the rotation angles and the zoom factor
 	 * @param gl
@@ -252,8 +342,6 @@ public class MyGLEventListener implements GLEventListener
 		gl.glRotatef(view_rotx, 1.0f, 0.0f, 0.0f);
 		gl.glRotatef(view_roty, 0.0f, 1.0f, 0.0f);
 	}
-
-
 
 	//GETTER AND SETTER
 	//*************************************************************

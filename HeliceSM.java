@@ -25,7 +25,7 @@ public class HeliceSM {
 
         /** Face devant **/
         gl.glBegin(GL2.GL_QUADS);
-        gl.glColor3d(0.9,0.9,0.9);
+        gl.glColor3d(0.25,0.25,0.3);
         gl.glVertex3d(xH - xH1, this.y + yH1, this.z - zH1); //V1
         gl.glVertex3d(xH - xH1,this.y - yH1, this.z - zH1); //V2
         gl.glVertex3d(xH + xH1,this.y - yH1,this.z - zH1); //V3
@@ -34,7 +34,7 @@ public class HeliceSM {
 
         /** Face à droite **/
         gl.glBegin(GL2.GL_QUADS);
-        gl.glColor3d(0.9,0.9,0.9);
+        gl.glColor3d(0.25,0.25,0.3);
         gl.glVertex3d(xH + xH1, this.y + yH1,this.z - zH1); //V4
         gl.glVertex3d(xH + xH1,this.y - yH1,this.z - zH1); //V3
         gl.glVertex3d(xH + xH1, this.y - yH1, this.z + zH1); //V5
@@ -43,7 +43,7 @@ public class HeliceSM {
 
         /** Face derrière **/
         gl.glBegin(GL2.GL_QUADS);
-        gl.glColor3d(0.9,0.9,0.9);
+        gl.glColor3d(0.25,0.25,0.3);
         gl.glVertex3d(xH + xH1,this.y + yH1, this.z + zH1); //V6
         gl.glVertex3d(xH + xH1, this.y - yH1, this.z + zH1); //V5
         gl.glVertex3d(xH - xH1,this.y - yH1,this.z + zH1); //V7
@@ -52,7 +52,7 @@ public class HeliceSM {
 
         /** Face à gauche **/
         gl.glBegin(GL2.GL_QUADS);
-        gl.glColor3d(0.9,0.9,0.9);
+        gl.glColor3d(0.25,0.25,0.3);
         gl.glVertex3d(xH - xH1, this.y + yH1,this.z + zH1); //V8
         gl.glVertex3d(xH - xH1,this.y - yH1,this.z + zH1); //V7
         gl.glVertex3d(xH - xH1,this.y - yH1, this.z - zH1); //V2
@@ -61,7 +61,7 @@ public class HeliceSM {
 
         /** Face au dessus **/
         gl.glBegin(GL2.GL_QUADS);
-        gl.glColor3d(0.9,0.9,0.9);
+        gl.glColor3d(0.25,0.25,0.3);
         gl.glVertex3d(xH - xH1, this.y + yH1,this.z + zH1); //V8
         gl.glVertex3d(xH - xH1, this.y + yH1, this.z - zH1); //V1
         gl.glVertex3d(xH + xH1, this.y + yH1,this.z - zH1); //V4
@@ -70,7 +70,7 @@ public class HeliceSM {
 
         /** Face au dessus **/
         gl.glBegin(GL2.GL_QUADS);
-        gl.glColor3d(0.9,0.9,0.9);
+        gl.glColor3d(0.25,0.25,0.3);
         gl.glVertex3d(xH - xH1,this.y - yH1, this.z - zH1); //V2
         gl.glVertex3d(xH - xH1,this.y - yH1,this.z + zH1); //V7
         gl.glVertex3d(xH + xH1, this.y - yH1, this.z + zH1); //V5
@@ -84,7 +84,7 @@ public class HeliceSM {
 
         /** Face devant **/
         gl.glBegin(GL2.GL_QUADS);
-        gl.glColor3d(0.9,0.9,0.9);
+        gl.glColor3d(0.25,0.25,0.3);
         gl.glVertex3d(xH - xH2, this.y + yH2, this.z - zH2); //V1
         gl.glVertex3d(xH - xH2,this.y - yH2, this.z - zH2); //V2
         gl.glVertex3d(xH + xH2,this.y - yH2,this.z - zH2); //V3
@@ -93,7 +93,7 @@ public class HeliceSM {
 
         /** Face à droite **/
         gl.glBegin(GL2.GL_QUADS);
-        gl.glColor3d(0.9,0.9,0.9);
+        gl.glColor3d(0.25,0.25,0.3);
         gl.glVertex3d(xH + xH2, this.y + yH2,this.z - zH2); //V4
         gl.glVertex3d(xH + xH2,this.y - yH2,this.z - zH2); //V3
         gl.glVertex3d(xH + xH2, this.y - yH2, this.z + zH2); //V5
@@ -102,7 +102,7 @@ public class HeliceSM {
 
         /** Face derrière **/
         gl.glBegin(GL2.GL_QUADS);
-        gl.glColor3d(0.9,0.9,0.9);
+        gl.glColor3d(0.25,0.25,0.3);
         gl.glVertex3d(xH + xH2,this.y + yH2, this.z + zH2); //V6
         gl.glVertex3d(xH + xH2, this.y - yH2, this.z + zH2); //V5
         gl.glVertex3d(xH - xH2,this.y - yH2,this.z + zH2); //V7
@@ -111,7 +111,7 @@ public class HeliceSM {
 
         /** Face à gauche **/
         gl.glBegin(GL2.GL_QUADS);
-        gl.glColor3d(0.9,0.9,0.9);
+        gl.glColor3d(0.25,0.25,0.3);
         gl.glVertex3d(xH - xH2, this.y + yH2,this.z + zH2); //V8
         gl.glVertex3d(xH - xH2,this.y - yH2,this.z + zH2); //V7
         gl.glVertex3d(xH - xH2,this.y - yH2, this.z - zH2); //V2
@@ -120,7 +120,7 @@ public class HeliceSM {
 
         /** Face au dessus **/
         gl.glBegin(GL2.GL_QUADS);
-        gl.glColor3d(0.9,0.9,0.9);
+        gl.glColor3d(0.25,0.25,0.3);
         gl.glVertex3d(xH - xH2, this.y + yH2,this.z + zH2); //V8
         gl.glVertex3d(xH - xH2, this.y + yH2, this.z - zH2); //V1
         gl.glVertex3d(xH + xH2, this.y + yH2,this.z - zH2); //V4
@@ -129,7 +129,7 @@ public class HeliceSM {
 
         /** Face au dessus **/
         gl.glBegin(GL2.GL_QUADS);
-        gl.glColor3d(0.9,0.9,0.9);
+        gl.glColor3d(0.25,0.25,0.3);
         gl.glVertex3d(xH - xH2,this.y - yH2, this.z - zH2); //V2
         gl.glVertex3d(xH - xH2,this.y - yH2,this.z + zH2); //V7
         gl.glVertex3d(xH + xH2, this.y - yH2, this.z + zH2); //V5

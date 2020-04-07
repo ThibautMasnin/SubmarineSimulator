@@ -1,6 +1,5 @@
 package SubmarineSimulator;
 
-import com.jogamp.newt.event.KeyEvent;
 import com.jogamp.opengl.*;
 import com.jogamp.newt.Window;
 import com.jogamp.newt.event.awt.AWTKeyAdapter;
@@ -33,17 +32,17 @@ public class MyGLEventListener implements GLEventListener
 	private float o = 0.0f;
 
 	private boolean tire = false;
-	public float p;
-	public float op;
-	public float q;
-	public float oq;
-	public float tempx;
-	public float tempy;
-	public float tempz;
+	private float p;
+	private float op;
+	private float q;
+	private float oq;
+	private float tempx;
+	private float tempy;
+	private float tempz;
 
-	public boolean mouvementAuto = true;
-	public int choixDeplacement;
-	public int nbDeplacement;
+	private boolean mouvementAuto = false;
+	private int nbDeplacement=0;
+	private int choixDeplacement;
 	//...
 
 	/**
@@ -91,8 +90,6 @@ public class MyGLEventListener implements GLEventListener
 
 		glut = new GLUT();
 		gl.glEnable(GL2.GL_COLOR_MATERIAL);
-		choixDeplacement = 0;
-		nbDeplacement = 0;
 		//...
 	}
 
@@ -138,8 +135,7 @@ public class MyGLEventListener implements GLEventListener
 
 //---------------------------------------------------------------------------------------------
 
-		if(mouvementAuto)
-		{
+		if(mouvementAuto) {
 			deplacerAuto();
 		}
 		gl.glPushMatrix();
@@ -200,59 +196,63 @@ public class MyGLEventListener implements GLEventListener
 
 	public void deplacerAuto()
 	{
-		Random r = new Random();
-		if(nbDeplacement == 10)
-		{
-			choixDeplacement = r.nextInt(5);
-			nbDeplacement = 0;
+		System.out.println(nbDeplacement);
+		if(nbDeplacement==0) {
+			choixDeplacement = new Random().nextInt(5);
+			nbDeplacement = new Random().nextInt(50)+10;
 		}
-		if(choixDeplacement == 0)
-		{
+		if(choixDeplacement == 0) {
 			avancer();
 		}
-		else if(choixDeplacement == 1)
-		{
+		else if(choixDeplacement == 1) {
 			reculer();
 		}
-		else if(choixDeplacement == 2)
-		{
+		else if(choixDeplacement == 2) {
 			monter();
 		}
-		else if(choixDeplacement == 3)
-		{
+		else if(choixDeplacement == 3) {
 			descendre();
 		}
-		else if(choixDeplacement == 4)
-		{
+		else if(choixDeplacement == 4) {
 			droite();
 		}
-		else if(choixDeplacement == 5)
-		{
+		else if(choixDeplacement == 5) {
 			gauche();
 		}
-		nbDeplacement++;
+		nbDeplacement--;
 	}
 
 	public void droite() {
+		avancer();
 		rotH += 100*vitesse;
 		o -= vitesse*15;
+		if(pivH<10) {
+			pivH+=2;
+		}
 	}
 
 	public void gauche() {
+		avancer();
 		rotH += 100*vitesse;
 		o += vitesse*15;
+		if(pivH>-10) {
+			pivH-=2;
+		}
 	}
 
 	public void monter() {
 		y += vitesse;
+		redresser();
 	}
 
 	public void descendre() {
 		y -= vitesse;
+		redresser();
 	}
 
 	public void avancer() {
 		rotH += 100*vitesse;
+		redresser();
 		if((o%360)/90>=-4 && (o%360)/90<=-3) {
 			x = x-vitesse*(3+(o%360)/90);
 			z = z-vitesse*(4+(o%360)/90);
@@ -289,6 +289,7 @@ public class MyGLEventListener implements GLEventListener
 
 	public void reculer() {
 		rotH -= 100*vitesse;
+		redresser();
 		if((o%360)/90>=-4 && (o%360)/90<=-3) {
 			x = x+vitesse*(3+(o%360)/90);
 			z = z+vitesse*(4+(o%360)/90);
@@ -320,6 +321,15 @@ public class MyGLEventListener implements GLEventListener
 		else if((o%360)/90>=3 && (o%360)/90<=4) {
 			x = x+vitesse*(3-(o%360)/90);
 			z = z-vitesse*(4-(o%360)/90);
+		}
+	}
+
+	public void redresser() {
+		if(pivH>0) {
+			pivH-=2;
+		}
+		else if(pivH<0) {
+			pivH+=2;
 		}
 	}
 
@@ -412,21 +422,7 @@ public class MyGLEventListener implements GLEventListener
 		zoomModified = true;
 	}
 
-	public void deplacementManuel()
-	{
-		mouvementAuto = false;
-	}
-
-	public void deplacementAuto()
-	{
-		mouvementAuto = true;
-	}
-
-	public float getPivH() {
-		return pivH;
-	}
-
-	public void changePivH(float piv) {
-		this.pivH += piv;
+	public void deplacementAuto() {
+		mouvementAuto=!mouvementAuto;
 	}
 }

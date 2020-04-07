@@ -8,7 +8,6 @@ class SceneKeyAdapter extends KeyAdapter
 
     private float view_rotx, view_roty;
     private float zoom = 1;
-
     private MyGLEventListener myGLEventListener;
 
     public SceneKeyAdapter (MyGLEventListener _myGLEventListener) {
@@ -25,17 +24,6 @@ class SceneKeyAdapter extends KeyAdapter
         view_rotx = myGLEventListener.getView_rotx();
         view_roty = myGLEventListener.getView_roty();
 
-//        Ctrl = 17 -> descendre
-//        Maj = 15 -> monter
-//        Z = 90 -> avancer
-//        S = 83 -> reculer
-//        Q = 81 -> gauche
-//        D = 68 -> droite
-
-        if(kc == 77) {
-            myGLEventListener.deplacementManuel();
-        }
-
         if(kc == 65) {
             myGLEventListener.deplacementAuto();
         }
@@ -43,16 +31,10 @@ class SceneKeyAdapter extends KeyAdapter
         if(kc == 81) {
             //Q est tapé, on tourne à gauche
             myGLEventListener.gauche();
-            if(myGLEventListener.getPivH()>-10) {
-                myGLEventListener.changePivH(-2);
-            }
         }
         else if(kc == 68) {
             //D est tapé, on tourne à droite
             myGLEventListener.droite();
-            if(myGLEventListener.getPivH()<10) {
-                myGLEventListener.changePivH(2);
-            }
         }
         else if(kc == 15) {
             //Maj est tapé, on monte
@@ -65,22 +47,10 @@ class SceneKeyAdapter extends KeyAdapter
         else if(kc == 83) {
             //S est tapé, on recule
             myGLEventListener.reculer();
-            if(myGLEventListener.getPivH()>0) {
-                myGLEventListener.changePivH(-2);
-            }
-            else if(myGLEventListener.getPivH()<0) {
-                myGLEventListener.changePivH(2);
-            }
         }
         else if(kc == 90) {
             //Z est tapé, on avance
             myGLEventListener.avancer();
-            if(myGLEventListener.getPivH()>0) {
-                myGLEventListener.changePivH(-1);
-            }
-            else if(myGLEventListener.getPivH()<0) {
-                myGLEventListener.changePivH(1);
-            }
         }
         else if(kc == 32) {
             //Espace est tapé, on tire

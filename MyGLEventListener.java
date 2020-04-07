@@ -204,21 +204,37 @@ public class MyGLEventListener implements GLEventListener
 
 	public void reculer()
 	{
-		if(Math.abs(o%360)/90<=1) {
-			x = x-deplacement*(1-Math.abs(o%360)/90);
-			z = z+deplacement*(Math.abs(o%360)/90);
+		if((o%360)/90>=-4 && (o%360)/90<=-3) {
+			x = x+deplacement*(3+(o%360)/90);
+			z = z+deplacement*(4+(o%360)/90);
 		}
-		else if(Math.abs(o%360)/90<=2) {
-			x = x-deplacement*(1-Math.abs(o%360)/90);
-			z = z+deplacement*(2-Math.abs(o%360)/90);
+		else if((o%360)/90>=-3 && (o%360)/90<=-2) {
+			x = x+deplacement*(3+(o%360)/90);
+			z = z-deplacement*(2+(o%360)/90);
 		}
-		else if(Math.abs(o%360)/90<=3) {
-			x = x+deplacement*(3-Math.abs(o%360)/90);
-			z = z+deplacement*(2-Math.abs(o%360)/90);
+		else if((o%360)/90>=-2 && (o%360)/90<=-1) {
+			x = x-deplacement*(1+(o%360)/90);
+			z = z-deplacement*(2+(o%360)/90);
 		}
-		else if(Math.abs(o%360)/90<=4) {
-			x = x+deplacement*(3-Math.abs(o%360)/90);
-			z = z-deplacement*(4-Math.abs(o%360)/90);
+		else if((o%360)/90>=-1 && (o%360)/90<=0) {
+			x = x-deplacement*(1+(o%360)/90);
+			z = z+deplacement*((o%360)/90);
+		}
+		else if((o%360)/90>=0 && (o%360)/90<=1) {
+			x = x-deplacement*(1-(o%360)/90);
+			z = z+deplacement*((o%360)/90);
+		}
+		else if((o%360)/90>=1 && (o%360)/90<=2) {
+			x = x-deplacement*(1-(o%360)/90);
+			z = z+deplacement*(2-(o%360)/90);
+		}
+		else if((o%360)/90>=2 && (o%360)/90<=3) {
+			x = x+deplacement*(3-(o%360)/90);
+			z = z+deplacement*(2-(o%360)/90);
+		}
+		else if((o%360)/90>=3 && (o%360)/90<=4) {
+			x = x+deplacement*(3-(o%360)/90);
+			z = z-deplacement*(4-(o%360)/90);
 		}
 	}
 
@@ -230,7 +246,6 @@ public class MyGLEventListener implements GLEventListener
 	 * @param view_roty
 	 */
 	public void updateScaleAndRotation(GL2 gl, float aspect, float view_rotx, float view_roty) {
-
 		if(zoomModified) {
 			gl.glMatrixMode(GL2.GL_PROJECTION);
 			gl.glLoadIdentity();
@@ -238,7 +253,6 @@ public class MyGLEventListener implements GLEventListener
 			zoomModified = false;
 			gl.glMatrixMode(GL2.GL_MODELVIEW);
 		}
-
 		gl.glLoadIdentity();
 		gl.glTranslatef(0.0f, 0.0f, -50.0f);
 		gl.glRotatef(view_rotx, 1.0f, 0.0f, 0.0f);

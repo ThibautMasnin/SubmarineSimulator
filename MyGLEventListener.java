@@ -53,11 +53,12 @@ public class MyGLEventListener implements GLEventListener
 
 
 		gl.glClearColor(0.4f, 0.6f, 0.9f, 1f);
-		gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, pos, 0);
-		gl.glEnable(GL2.GL_CULL_FACE);
-		gl.glEnable(GL2.GL_LIGHTING);
-		gl.glEnable(GL2.GL_LIGHT0);
+		gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, pos, 2);
+//		gl.glEnable(GL2.GL_CULL_FACE);
+//		gl.glEnable(GL2.GL_LIGHTING);
+//		gl.glEnable(GL2.GL_LIGHT0);
 		gl.glEnable(GL2.GL_DEPTH_TEST);
+
 
 		objectMouse = new SceneMouseAdapter(this);
 		objectKeys = new SceneKeyAdapter(this);

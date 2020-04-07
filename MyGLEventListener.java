@@ -22,12 +22,12 @@ public class MyGLEventListener implements GLEventListener
 	private boolean tire = false;
 	private boolean sortie = false;
 	private boolean mouvementAuto = false;
+	private boolean vueConducteur = false;
 	private float vitesse = 0.1f;
 	private float rotH, pivH;
 	private float x = 0f, y = 0.0f, z = 0.0f, o = 0.0f;
 	private float p, op, q, oq, tempx, tempy, tempz, e;
 	private int choixDeplacement, nbDeplacement=0;
-	private boolean vueConducteur = false;
 
 	/**
 	 * The init() method is called when a new OpenGL context is created for the given GLAutoDrawable.
@@ -99,71 +99,54 @@ public class MyGLEventListener implements GLEventListener
 		// Rotate the entire assembly of gears based on how the user dragged the mouse around
 		updateScaleAndRotation(gl,aspect,view_rotx,view_roty);
 
-		if(mouvementAuto) {
-			deplacerAuto();
-		}
-		if(pivH>0) {
-			pivH-=1;
-		}
-		else if(pivH<0) {
-			pivH+=1;
-		}
-		etatPeriscope();
 
-//---------------------------------------------------------------------------------------------
-
-		gl.glPushMatrix();
-		gl.glPushMatrix();
-		gl.glTranslatef(x, y, z);
-		gl.glRotatef(o,0f,1f,0f);
-		/** Repere **/
-		Repere repere = new Repere(10,10,10);
-		repere.draw(gl);
-		/** Sous marin **/
-		gl.glTranslatef(4,0,0);;
-		gl.glColor3d(0.3,0.35,0.35);
-		glut.glutSolidSphere(1.2,100,100);
-		gl.glTranslatef(-8,0,0);
-		gl.glRotatef(90,0f,1,0f);
-		glut.glutSolidCylinder(1.2,8,100,100);
-		glut.glutSolidSphere(1.2,100,100);
-		gl.glTranslatef(0,1.2f,4);
-		gl.glColor3d(0.25,0.25,0.3);
-		glut.glutSolidCube(0.8f);
-		gl.glPushMatrix();
-		gl.glRotatef(-90,1,0,0);
-		gl.glTranslatef(0, 0, -1.5f);
-		gl.glTranslatef(0, 0, e);
-		glut.glutSolidCylinder(0.1,2,100,100);
-		gl.glPopMatrix();
-
-		/** Helice **/
-		gl.glTranslatef(0,-1.2f,-4);
-		gl.glRotatef(-90,0f,1,0f);
-		HeliceSM helice = new HeliceSM(-1.3,0,0);
-		gl.glRotatef(pivH,0f,1f,0f);
-		gl.glRotatef(rotH,1f,0f,0f);
-		helice.draw(gl);
-		gl.glPopMatrix();
-
-		/** Torpille **/
-		gl.glPushMatrix();
-		if(tire) {
-			p+=op*2;
-			q+=oq*2;
-			gl.glTranslatef(tempx+p, tempy, tempz+q);
+		if(vueConducteur == true) {
+			FirstPerson fp = new FirstPerson();
+			fp.draw(gl);
 		}
 		else {
+			if(mouvementAuto) {
+				deplacerAuto();
+			}
+			if(pivH>0) {
+				pivH-=1;
+			}
+			else if(pivH<0) {
+				pivH+=1;
+			}
+			etatPeriscope();
+
+	//---------------------------------------------------------------------------------------------
+
+			gl.glPushMatrix();
+			gl.glPushMatrix();
 			gl.glTranslatef(x, y, z);
 			gl.glRotatef(o,0f,1f,0f);
 			/** Repere **/
 			Repere repere = new Repere(10,10,10);
 			repere.draw(gl);
 			/** Sous marin **/
-			BaseSM base = new BaseSM(0,0,0);
-			base.draw(gl);
+			gl.glTranslatef(4,0,0);;
+			gl.glColor3d(0.3,0.35,0.35);
+			glut.glutSolidSphere(1.2,100,100);
+			gl.glTranslatef(-8,0,0);
+			gl.glRotatef(90,0f,1,0f);
+			glut.glutSolidCylinder(1.2,8,100,100);
+			glut.glutSolidSphere(1.2,100,100);
+			gl.glTranslatef(0,1.2f,4);
+			gl.glColor3d(0.25,0.25,0.3);
+			glut.glutSolidCube(0.8f);
+			gl.glPushMatrix();
+			gl.glRotatef(-90,1,0,0);
+			gl.glTranslatef(0, 0, -1.5f);
+			gl.glTranslatef(0, 0, e);
+			glut.glutSolidCylinder(0.1,2,100,100);
+			gl.glPopMatrix();
+
 			/** Helice **/
-			HeliceSM helice = new HeliceSM(-(base.xB + 0.25),0,0);
+			gl.glTranslatef(0,-1.2f,-4);
+			gl.glRotatef(-90,0f,1,0f);
+			HeliceSM helice = new HeliceSM(-1.3,0,0);
 			gl.glRotatef(pivH,0f,1f,0f);
 			gl.glRotatef(rotH,1f,0f,0f);
 			helice.draw(gl);
@@ -436,8 +419,7 @@ public class MyGLEventListener implements GLEventListener
 		mouvementAuto=!mouvementAuto;
 	}
 
-	public void isVueConducteur()
-	{
+	public void vueConducteur() {
 		vueConducteur =! vueConducteur;
 	}
 }

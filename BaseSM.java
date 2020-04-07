@@ -76,8 +76,4 @@ public class BaseSM {
         gl.glVertex3d(this.x + xB,this.y - yB,this.z - zB); //V3
         gl.glEnd();
     }
-
-    public double getxB() {
-        return xB;
-    }
 }

@@ -19,32 +19,15 @@ public class MyGLEventListener implements GLEventListener
 	SceneMouseAdapter objectMouse;
 	SceneKeyAdapter objectKeys;
 
-	//////////////////////////////////////////////////////////////////////////////////////////////:
-	// TO FILL
-	private float vitesse = 0.1f;
-
-	private float rotH;
-	private float pivH;
-
-	private float x = 0f;
-	private float y = 0.0f;
-	private float z = 0.0f;
-	private float o = 0.0f;
-
 	private boolean tire = false;
-	private float p;
-	private float op;
-	private float q;
-	private float oq;
-	private float tempx;
-	private float tempy;
-	private float tempz;
-
+	private boolean sortie = false;
 	private boolean mouvementAuto = false;
-	private int nbDeplacement=0;
-	private int choixDeplacement;
+	private float vitesse = 0.1f;
+	private float rotH, pivH;
+	private float x = 0f, y = 0.0f, z = 0.0f, o = 0.0f;
+	private float p, op, q, oq, tempx, tempy, tempz, e;
+	private int choixDeplacement, nbDeplacement=0;
 	private boolean vueConducteur = false;
-	//...
 
 	/**
 	 * The init() method is called when a new OpenGL context is created for the given GLAutoDrawable.
@@ -85,13 +68,8 @@ public class MyGLEventListener implements GLEventListener
 
 		gl.glEnable(GL2.GL_NORMALIZE);
 
-
-		/////////////////////////////////////////////////////////////////////////////////////
-		//TO FILL
-
 		glut = new GLUT();
 		gl.glEnable(GL2.GL_COLOR_MATERIAL);
-		//...
 	}
 
 	// Called when the drawable has been resized
@@ -109,45 +87,73 @@ public class MyGLEventListener implements GLEventListener
 		gl.glMatrixMode(GL2.GL_MODELVIEW);
 	}
 
-
 	@Override
-	public void dispose(GLAutoDrawable drawable) {
+	public void dispose(GLAutoDrawable drawable) {}
 
-	}
-
-
-	/**
-	 * Called to perform per-frame rendering.
-	 */
+	//Called to perform per-frame rendering.
 	public void display(GLAutoDrawable drawable) {
-
 		// Get the GL corresponding to the drawable we are animating
 		GL2 gl = drawable.getGL().getGL2();
 		gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
 
 		// Rotate the entire assembly of gears based on how the user dragged the mouse around
-		gl.glPushMatrix();
-
 		updateScaleAndRotation(gl,aspect,view_rotx,view_roty);
 
-		/////////////////////////////////////////////////////////////////////////////////
-		//TO FILL
-
+		if(mouvementAuto) {
+			deplacerAuto();
+		}
+		if(pivH>0) {
+			pivH-=1;
+		}
+		else if(pivH<0) {
+			pivH+=1;
+		}
+		etatPeriscope();
 
 //---------------------------------------------------------------------------------------------
 
-		if(vueConducteur == true)
-		{
-			FirstPerson fp = new FirstPerson();
-			fp.draw(gl);
+		gl.glPushMatrix();
+		gl.glPushMatrix();
+		gl.glTranslatef(x, y, z);
+		gl.glRotatef(o,0f,1f,0f);
+		/** Repere **/
+		Repere repere = new Repere(10,10,10);
+		repere.draw(gl);
+		/** Sous marin **/
+		gl.glTranslatef(4,0,0);;
+		gl.glColor3d(0.3,0.35,0.35);
+		glut.glutSolidSphere(1.2,100,100);
+		gl.glTranslatef(-8,0,0);
+		gl.glRotatef(90,0f,1,0f);
+		glut.glutSolidCylinder(1.2,8,100,100);
+		glut.glutSolidSphere(1.2,100,100);
+		gl.glTranslatef(0,1.2f,4);
+		gl.glColor3d(0.25,0.25,0.3);
+		glut.glutSolidCube(0.8f);
+		gl.glPushMatrix();
+		gl.glRotatef(-90,1,0,0);
+		gl.glTranslatef(0, 0, -1.5f);
+		gl.glTranslatef(0, 0, e);
+		glut.glutSolidCylinder(0.1,2,100,100);
+		gl.glPopMatrix();
+
+		/** Helice **/
+		gl.glTranslatef(0,-1.2f,-4);
+		gl.glRotatef(-90,0f,1,0f);
+		HeliceSM helice = new HeliceSM(-1.3,0,0);
+		gl.glRotatef(pivH,0f,1f,0f);
+		gl.glRotatef(rotH,1f,0f,0f);
+		helice.draw(gl);
+		gl.glPopMatrix();
+
+		/** Torpille **/
+		gl.glPushMatrix();
+		if(tire) {
+			p+=op*2;
+			q+=oq*2;
+			gl.glTranslatef(tempx+p, tempy, tempz+q);
 		}
-		else
-		{
-			if(mouvementAuto) {
-				deplacerAuto();
-			}
-			gl.glPushMatrix();
-			gl.glPushMatrix();
+		else {
 			gl.glTranslatef(x, y, z);
 			gl.glRotatef(o,0f,1f,0f);
 			/** Repere **/
@@ -203,6 +209,8 @@ public class MyGLEventListener implements GLEventListener
 		gl.glPopMatrix();
 	}
 
+//---------------------------------------------------------------------------------------------
+
 	public void deplacerAuto()
 	{
 		System.out.println(nbDeplacement);
@@ -233,35 +241,30 @@ public class MyGLEventListener implements GLEventListener
 
 	public void droite() {
 		avancer();
-		rotH += 100*vitesse;
 		o -= vitesse*15;
-		if(pivH<10) {
-			pivH+=2;
+		if(pivH<15) {
+			pivH+=4;
 		}
 	}
 
 	public void gauche() {
 		avancer();
-		rotH += 100*vitesse;
 		o += vitesse*15;
-		if(pivH>-10) {
-			pivH-=2;
+		if(pivH>-15) {
+			pivH-=4;
 		}
 	}
 
 	public void monter() {
 		y += vitesse;
-		redresser();
 	}
 
 	public void descendre() {
 		y -= vitesse;
-		redresser();
 	}
 
 	public void avancer() {
 		rotH += 100*vitesse;
-		redresser();
 		if((o%360)/90>=-4 && (o%360)/90<=-3) {
 			x = x-vitesse*(3+(o%360)/90);
 			z = z-vitesse*(4+(o%360)/90);
@@ -298,7 +301,6 @@ public class MyGLEventListener implements GLEventListener
 
 	public void reculer() {
 		rotH -= 100*vitesse;
-		redresser();
 		if((o%360)/90>=-4 && (o%360)/90<=-3) {
 			x = x+vitesse*(3+(o%360)/90);
 			z = z+vitesse*(4+(o%360)/90);
@@ -333,12 +335,12 @@ public class MyGLEventListener implements GLEventListener
 		}
 	}
 
-	public void redresser() {
-		if(pivH>0) {
-			pivH-=2;
+	public void etatPeriscope() {
+		if(sortie && e<1.5) {
+				e+=0.05;
 		}
-		else if(pivH<0) {
-			pivH+=2;
+		if(!sortie && e>0) {
+				e-=0.01;
 		}
 	}
 
@@ -404,8 +406,7 @@ public class MyGLEventListener implements GLEventListener
 		gl.glRotatef(view_roty, 0.0f, 1.0f, 0.0f);
 	}
 
-	//GETTER AND SETTER
-	//*************************************************************
+	//GETTER AND SETTER ---------------------------------------------------
 	public float getView_rotx() {
 		return view_rotx;
 	}
@@ -422,13 +423,13 @@ public class MyGLEventListener implements GLEventListener
 		this.view_roty = view_roty;
 	}
 
-	public float getScale() {
-		return scale;
-	}
-
 	public void setScale(float scale2) {
 		this.scale = scale2;
 		zoomModified = true;
+	}
+
+	public void periscope() {
+		sortie=!sortie;
 	}
 
 	public void deplacementAuto() {

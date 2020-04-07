@@ -3,9 +3,7 @@ package SubmarineSimulator;
 import com.jogamp.opengl.GL2;
 
 public class Repere {
-    private double x;
-    private double y;
-    private double z;
+    private double x, y, z;
 
     public Repere(double x, double y, double z) {
         this.x = x;

@@ -33,8 +33,11 @@ class SceneKeyAdapter extends KeyAdapter
             //A est tapé, on active ou désactive le deplacement automatique
             myGLEventListener.deplacementAuto();
         }
-
-        if(kc == 81) {
+        else if(kc == 69) {
+            //E est tapé, on sort le periscope
+            myGLEventListener.periscope();
+        }
+        else if(kc == 81) {
             //Q est tapé, on tourne à gauche
             myGLEventListener.gauche();
         }

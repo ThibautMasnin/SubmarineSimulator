@@ -3,12 +3,7 @@ package SubmarineSimulator;
 import com.jogamp.opengl.GL2;
 
 public class Rectangle {
-    private double x;
-    private double y;
-    private double z;
-    private double xB;
-    private double yB;
-    private double zB;
+    private double x, y, z, xB, yB, zB;
 
     public Rectangle(double x, double y, double z, double xb, double yb, double zb) {
         this.x = x;

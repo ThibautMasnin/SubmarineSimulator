@@ -21,7 +21,6 @@ class SceneKeyAdapter extends KeyAdapter
     @Override
     public void keyPressed(KeyEvent e) {
         int kc = e.getKeyCode();
-        System.out.println("key : " + e.getKeyCode());
 
         view_rotx = myGLEventListener.getView_rotx();
         view_roty = myGLEventListener.getView_roty();

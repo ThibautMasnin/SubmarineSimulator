@@ -19,10 +19,11 @@ public class MyGLEventListener implements GLEventListener
 
 	//////////////////////////////////////////////////////////////////////////////////////////////:
 	// TO FILL
-	private float translation = 0f;
 	private float deplacement = 0.1f;
-	private float positionVerticale = 0.0f;
-	private float orientation = 0.0f;
+	private float x = 0f;
+	private float y = 0.0f;
+	private float z = 0.0f;
+	private float o = 0.0f;
 	//...
 
 
@@ -41,7 +42,7 @@ public class MyGLEventListener implements GLEventListener
 		float red[] = { 0.8f, 0.1f, 0.0f, 0.7f };
 
 
-		gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		gl.glClearColor(0.2f, 0.3f, 0.8f, 0f);
 		gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, pos, 0);
 		gl.glEnable(GL2.GL_CULL_FACE);
 		gl.glEnable(GL2.GL_LIGHTING);
@@ -120,42 +121,74 @@ public class MyGLEventListener implements GLEventListener
 
 //---------------------------------------------------------------------------------------------
 		gl.glPushMatrix();
-		gl.glRotatef(orientation,0f,1f,0f);
-		gl.glTranslatef(translation, positionVerticale, 0.0f);
+		gl.glColor3d(1,1,1);
+		gl.glTranslatef(x, y, z);
+		gl.glRotatef(o,0f,1f,0f);
 		glut.glutSolidTeapot(1);
 		gl.glPopMatrix();
 //-------------------------------------------------------------------------------------------
 
 	}
 
-	public void droite()
-	{
-		orientation -= deplacement*5;
+	public void droite() {
+		o -= deplacement*15;
+		System.out.println(Math.abs(o%360)/90);
 	}
 
 	public void gauche()
 	{
-		orientation += deplacement*5;
+		o += deplacement*15;
+		System.out.println(Math.abs(o%360)/90);
 	}
 
 	public void monter()
 	{
-		positionVerticale += deplacement;
+		y += deplacement;
 	}
 
 	public void descendre()
 	{
-		positionVerticale -= deplacement;
+		y -= deplacement;
 	}
 
 	public void avancer()
 	{
-		translation += deplacement;
+		if(Math.abs(o%360)/90<=1) {
+			x = x+deplacement*(1-Math.abs(o%360)/90);
+			z = z-deplacement*(Math.abs(o%360)/90);
+		}
+		else if(Math.abs(o%360)/90<=2) {
+			x = x+deplacement*(1-Math.abs(o%360)/90);
+			z = z-deplacement*(2-Math.abs(o%360)/90);
+		}
+		else if(Math.abs(o%360)/90<=3) {
+			x = x-deplacement*(3-Math.abs(o%360)/90);
+			z = z-deplacement*(2-Math.abs(o%360)/90);
+		}
+		else if(Math.abs(o%360)/90<=4) {
+			x = x-deplacement*(3-Math.abs(o%360)/90);
+			z = z+deplacement*(4-Math.abs(o%360)/90);
+		}
 	}
 
 	public void reculer()
 	{
-		translation -= deplacement;
+		if(Math.abs(o%360)/90<=1) {
+			x = x-deplacement*(1-Math.abs(o%360)/90);
+			z = z+deplacement*(Math.abs(o%360)/90);
+		}
+		else if(Math.abs(o%360)/90<=2) {
+			x = x-deplacement*(1-Math.abs(o%360)/90);
+			z = z+deplacement*(2-Math.abs(o%360)/90);
+		}
+		else if(Math.abs(o%360)/90<=3) {
+			x = x+deplacement*(3-Math.abs(o%360)/90);
+			z = z+deplacement*(2-Math.abs(o%360)/90);
+		}
+		else if(Math.abs(o%360)/90<=4) {
+			x = x+deplacement*(3-Math.abs(o%360)/90);
+			z = z-deplacement*(4-Math.abs(o%360)/90);
+		}
 	}
 
 	/**
@@ -168,7 +201,6 @@ public class MyGLEventListener implements GLEventListener
 	public void updateScaleAndRotation(GL2 gl, float aspect, float view_rotx, float view_roty) {
 
 		if(zoomModified) {
-
 			gl.glMatrixMode(GL2.GL_PROJECTION);
 			gl.glLoadIdentity();
 			gl.glFrustum(-scale, scale, -scale*aspect, scale*aspect, 5.0f, 60.0f);

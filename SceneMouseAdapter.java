@@ -1,9 +1,10 @@
+package SubmarineSimulator;
+
 import com.jogamp.newt.Window;
 import com.jogamp.newt.event.MouseAdapter;
 import com.jogamp.newt.event.MouseEvent;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLProfile;
-
 
 class SceneMouseAdapter extends MouseAdapter {
       

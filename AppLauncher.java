@@ -1,5 +1,4 @@
-
-
+package SubmarineSimulator;
 
 public class AppLauncher {
 

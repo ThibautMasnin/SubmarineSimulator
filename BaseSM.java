@@ -1,8 +1,6 @@
 package SubmarineSimulator;
 
-
 import com.jogamp.opengl.GL2;
-import com.jogamp.opengl.util.gl2.GLUT;
 
 public class BaseSM {
     private double x;

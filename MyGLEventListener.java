@@ -19,8 +19,11 @@ public class MyGLEventListener implements GLEventListener
 
 	//////////////////////////////////////////////////////////////////////////////////////////////:
 	// TO FILL
+	private float vitesse = 0.1f;
+
 	private float rotH;
-	private float deplacement = 0.1f;
+	private float pivH;
+
 	private float x = 0f;
 	private float y = 0.0f;
 	private float z = 0.0f;
@@ -35,7 +38,6 @@ public class MyGLEventListener implements GLEventListener
 	public float tempy;
 	public float tempz;
 	//...
-
 
 	/**
 	 * The init() method is called when a new OpenGL context is created for the given GLAutoDrawable.
@@ -87,10 +89,7 @@ public class MyGLEventListener implements GLEventListener
 		//...
 	}
 
-
-	/**
-	 * Called when the drawable has been resized
-	 */
+	// Called when the drawable has been resized
 	@Override
 	public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
 
@@ -126,12 +125,8 @@ public class MyGLEventListener implements GLEventListener
 
 		updateScaleAndRotation(gl,aspect,view_rotx,view_roty);
 
-
 		/////////////////////////////////////////////////////////////////////////////////
 		//TO FILL
-
-
-//---------------------------------------------------------------------------------------------
 
 		gl.glPushMatrix();
 		gl.glPushMatrix();
@@ -144,10 +139,12 @@ public class MyGLEventListener implements GLEventListener
 		BaseSM base = new BaseSM(0,0,0);
 		base.draw(gl);
 		/** Helice **/
-		HeliceSM helice = new HeliceSM(-(base.xB + 0.15),0,0);
+		HeliceSM helice = new HeliceSM(-(base.xB + 0.25),0,0);
+		gl.glRotatef(pivH,0f,1f,0f);
 		gl.glRotatef(rotH,1f,0f,0f);
 		helice.draw(gl);
 		gl.glPopMatrix();
+
 		/** Torpille **/
 		gl.glPushMatrix();
 		if(tire) {
@@ -159,7 +156,7 @@ public class MyGLEventListener implements GLEventListener
 			gl.glTranslatef(x, y, z);
 			gl.glRotatef(o,0f,1f,0f);
 		}
-		gl.glColor3d(1,0.3,0.2);
+		gl.glColor3d(0,0,0);
 		glut.glutSolidSphere(0.2,5,5);
 		gl.glPopMatrix();
 
@@ -185,100 +182,95 @@ public class MyGLEventListener implements GLEventListener
 		glut.glutSolidSphere(0.1,5,5);
 		gl.glPopMatrix();
 		gl.glPopMatrix();
-
-//-------------------------------------------------------------------------------------------
-
 	}
 
 	public void droite() {
-		o += deplacement*15;
-		System.out.println(o%360/90);
+		rotH += 100*vitesse;
+		o -= vitesse*15;
 	}
 
 	public void gauche() {
-		o -= deplacement*15;
-		System.out.println((o%360)/90);
+		rotH += 100*vitesse;
+		o += vitesse*15;
 	}
 
-	public void monter()
-	{
-		y += deplacement;
+	public void monter() {
+		y += vitesse;
 	}
 
-	public void descendre()
-	{
-		y -= deplacement;
+	public void descendre() {
+		y -= vitesse;
 	}
 
 	public void avancer() {
-		rotH += 5f;
+		rotH += 100*vitesse;
 		if((o%360)/90>=-4 && (o%360)/90<=-3) {
-			x = x-deplacement*(3+(o%360)/90);
-			z = z-deplacement*(4+(o%360)/90);
+			x = x-vitesse*(3+(o%360)/90);
+			z = z-vitesse*(4+(o%360)/90);
 		}
 		else if((o%360)/90>=-3 && (o%360)/90<=-2) {
-			x = x-deplacement*(3+(o%360)/90);
-			z = z+deplacement*(2+(o%360)/90);
+			x = x-vitesse*(3+(o%360)/90);
+			z = z+vitesse*(2+(o%360)/90);
 		}
 		else if((o%360)/90>=-2 && (o%360)/90<=-1) {
-			x = x+deplacement*(1+(o%360)/90);
-			z = z+deplacement*(2+(o%360)/90);
+			x = x+vitesse*(1+(o%360)/90);
+			z = z+vitesse*(2+(o%360)/90);
 		}
 		else if((o%360)/90>=-1 && (o%360)/90<=0) {
-			x = x+deplacement*(1+(o%360)/90);
-			z = z-deplacement*((o%360)/90);
+			x = x+vitesse*(1+(o%360)/90);
+			z = z-vitesse*((o%360)/90);
 		}
 		else if((o%360)/90>=0 && (o%360)/90<=1) {
-			x = x+deplacement*(1-(o%360)/90);
-			z = z-deplacement*((o%360)/90);
+			x = x+vitesse*(1-(o%360)/90);
+			z = z-vitesse*((o%360)/90);
 		}
 		else if((o%360)/90>=1 && (o%360)/90<=2) {
-			x = x+deplacement*(1-(o%360)/90);
-			z = z-deplacement*(2-(o%360)/90);
+			x = x+vitesse*(1-(o%360)/90);
+			z = z-vitesse*(2-(o%360)/90);
 		}
 		else if((o%360)/90>=2 && (o%360)/90<=3) {
-			x = x-deplacement*(3-(o%360)/90);
-			z = z-deplacement*(2-(o%360)/90);
+			x = x-vitesse*(3-(o%360)/90);
+			z = z-vitesse*(2-(o%360)/90);
 		}
 		else if((o%360)/90>=3 && (o%360)/90<=4) {
-			x = x-deplacement*(3-(o%360)/90);
-			z = z+deplacement*(4-(o%360)/90);
+			x = x-vitesse*(3-(o%360)/90);
+			z = z+vitesse*(4-(o%360)/90);
 		}
 	}
 
 	public void reculer() {
-		rotH -= 5f;
+		rotH -= 100*vitesse;
 		if((o%360)/90>=-4 && (o%360)/90<=-3) {
-			x = x+deplacement*(3+(o%360)/90);
-			z = z+deplacement*(4+(o%360)/90);
+			x = x+vitesse*(3+(o%360)/90);
+			z = z+vitesse*(4+(o%360)/90);
 		}
 		else if((o%360)/90>=-3 && (o%360)/90<=-2) {
-			x = x+deplacement*(3+(o%360)/90);
-			z = z-deplacement*(2+(o%360)/90);
+			x = x+vitesse*(3+(o%360)/90);
+			z = z-vitesse*(2+(o%360)/90);
 		}
 		else if((o%360)/90>=-2 && (o%360)/90<=-1) {
-			x = x-deplacement*(1+(o%360)/90);
-			z = z-deplacement*(2+(o%360)/90);
+			x = x-vitesse*(1+(o%360)/90);
+			z = z-vitesse*(2+(o%360)/90);
 		}
 		else if((o%360)/90>=-1 && (o%360)/90<=0) {
-			x = x-deplacement*(1+(o%360)/90);
-			z = z+deplacement*((o%360)/90);
+			x = x-vitesse*(1+(o%360)/90);
+			z = z+vitesse*((o%360)/90);
 		}
 		else if((o%360)/90>=0 && (o%360)/90<=1) {
-			x = x-deplacement*(1-(o%360)/90);
-			z = z+deplacement*((o%360)/90);
+			x = x-vitesse*(1-(o%360)/90);
+			z = z+vitesse*((o%360)/90);
 		}
 		else if((o%360)/90>=1 && (o%360)/90<=2) {
-			x = x-deplacement*(1-(o%360)/90);
-			z = z+deplacement*(2-(o%360)/90);
+			x = x-vitesse*(1-(o%360)/90);
+			z = z+vitesse*(2-(o%360)/90);
 		}
 		else if((o%360)/90>=2 && (o%360)/90<=3) {
-			x = x+deplacement*(3-(o%360)/90);
-			z = z+deplacement*(2-(o%360)/90);
+			x = x+vitesse*(3-(o%360)/90);
+			z = z+vitesse*(2-(o%360)/90);
 		}
 		else if((o%360)/90>=3 && (o%360)/90<=4) {
-			x = x+deplacement*(3-(o%360)/90);
-			z = z-deplacement*(4-(o%360)/90);
+			x = x+vitesse*(3-(o%360)/90);
+			z = z-vitesse*(4-(o%360)/90);
 		}
 	}
 
@@ -289,36 +281,36 @@ public class MyGLEventListener implements GLEventListener
 			tempy=y;
 			tempz=z;
 			if((o%360)/90>=-4 && (o%360)/90<=-3) {
-				op = -deplacement*(3+(o%360)/90);
-				oq = -deplacement*(4+(o%360)/90);
+				op = -vitesse*(3+(o%360)/90);
+				oq = -vitesse*(4+(o%360)/90);
 			}
 			else if((o%360)/90>=-3 && (o%360)/90<=-2) {
-				op = -deplacement*(3+(o%360)/90);
-				oq = deplacement*(2+(o%360)/90);
+				op = -vitesse*(3+(o%360)/90);
+				oq = vitesse*(2+(o%360)/90);
 			}
 			else if((o%360)/90>=-2 && (o%360)/90<=-1) {
-				op = deplacement*(1+(o%360)/90);
-				oq = deplacement*(2+(o%360)/90);
+				op = vitesse*(1+(o%360)/90);
+				oq = vitesse*(2+(o%360)/90);
 			}
 			else if((o%360)/90>=-1 && (o%360)/90<=0) {
-				op = deplacement*(1+(o%360)/90);
-				oq = -deplacement*((o%360)/90);
+				op = vitesse*(1+(o%360)/90);
+				oq = -vitesse*((o%360)/90);
 			}
 			else if((o%360)/90>=0 && (o%360)/90<=1) {
-				op = deplacement*(1-(o%360)/90);
-				oq = -deplacement*((o%360)/90);
+				op = vitesse*(1-(o%360)/90);
+				oq = -vitesse*((o%360)/90);
 			}
 			else if((o%360)/90>=1 && (o%360)/90<=2) {
-				op = deplacement*(1-(o%360)/90);
-				oq = -deplacement*(2-(o%360)/90);
+				op = vitesse*(1-(o%360)/90);
+				oq = -vitesse*(2-(o%360)/90);
 			}
 			else if((o%360)/90>=2 && (o%360)/90<=3) {
-				op = -deplacement*(3-(o%360)/90);
-				oq = -deplacement*(2-(o%360)/90);
+				op = -vitesse*(3-(o%360)/90);
+				oq = -vitesse*(2-(o%360)/90);
 			}
 			else if((o%360)/90>=3 && (o%360)/90<=4) {
-				op = -deplacement*(3-(o%360)/90);
-				oq = deplacement*(4-(o%360)/90);
+				op = -vitesse*(3-(o%360)/90);
+				oq = vitesse*(4-(o%360)/90);
 			}
 		}
 	}
@@ -369,5 +361,13 @@ public class MyGLEventListener implements GLEventListener
 	public void setScale(float scale2) {
 		this.scale = scale2;
 		zoomModified = true;
+	}
+
+	public float getPivH() {
+		return pivH;
+	}
+
+	public void changePivH(float piv) {
+		this.pivH += piv;
 	}
 }

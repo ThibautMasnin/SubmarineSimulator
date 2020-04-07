@@ -119,14 +119,14 @@ public class MyGLEventListener implements GLEventListener
 
 		/////////////////////////////////////////////////////////////////////////////////
 		//TO FILL
-		Repere repere = new Repere(3,3,3);
+		Repere repere = new Repere(10,10,10);
 		repere.draw(gl);
 
 		/** Sous marin **/
 		BaseSM base = new BaseSM(0,0,0);
 //		base.draw(gl);
 
-		/** Helice **/
+/** Helice **/
 		HeliceSM helice = new HeliceSM(base.xB + 0.15,0,0);
 		gl.glPushMatrix();
 		gl.glRotatef(rotH,1f,0f,0f);
@@ -146,14 +146,14 @@ public class MyGLEventListener implements GLEventListener
 	}
 
 	public void droite() {
-		o -= deplacement*15;
-		System.out.println(Math.abs(o%360)/90);
+		o += deplacement*15;
+		System.out.println(o%360/90);
 	}
 
 	public void gauche()
 	{
-		o += deplacement*15;
-		System.out.println(Math.abs(o%360)/90);
+		o -= deplacement*15;
+		System.out.println((o%360)/90);
 	}
 
 	public void monter()
@@ -168,21 +168,37 @@ public class MyGLEventListener implements GLEventListener
 
 	public void avancer()
 	{
-		if(Math.abs(o%360)/90<=1) {
-			x = x+deplacement*(1-Math.abs(o%360)/90);
-			z = z-deplacement*(Math.abs(o%360)/90);
+		if((o%360)/90>=-4 && (o%360)/90<=-3) {
+			x = x-deplacement*(3+(o%360)/90);
+			z = z-deplacement*(4+(o%360)/90);
 		}
-		else if(Math.abs(o%360)/90<=2) {
-			x = x+deplacement*(1-Math.abs(o%360)/90);
-			z = z-deplacement*(2-Math.abs(o%360)/90);
+		else if((o%360)/90>=-3 && (o%360)/90<=-2) {
+			x = x-deplacement*(3+(o%360)/90);
+			z = z+deplacement*(2+(o%360)/90);
 		}
-		else if(Math.abs(o%360)/90<=3) {
-			x = x-deplacement*(3-Math.abs(o%360)/90);
-			z = z-deplacement*(2-Math.abs(o%360)/90);
+		else if((o%360)/90>=-2 && (o%360)/90<=-1) {
+			x = x+deplacement*(1+(o%360)/90);
+			z = z+deplacement*(2+(o%360)/90);
 		}
-		else if(Math.abs(o%360)/90<=4) {
-			x = x-deplacement*(3-Math.abs(o%360)/90);
-			z = z+deplacement*(4-Math.abs(o%360)/90);
+		else if((o%360)/90>=-1 && (o%360)/90<=0) {
+			x = x+deplacement*(1+(o%360)/90);
+			z = z-deplacement*((o%360)/90);
+		}
+		else if((o%360)/90>=0 && (o%360)/90<=1) {
+			x = x+deplacement*(1-(o%360)/90);
+			z = z-deplacement*((o%360)/90);
+		}
+		else if((o%360)/90>=1 && (o%360)/90<=2) {
+			x = x+deplacement*(1-(o%360)/90);
+			z = z-deplacement*(2-(o%360)/90);
+		}
+		else if((o%360)/90>=2 && (o%360)/90<=3) {
+			x = x-deplacement*(3-(o%360)/90);
+			z = z-deplacement*(2-(o%360)/90);
+		}
+		else if((o%360)/90>=3 && (o%360)/90<=4) {
+			x = x-deplacement*(3-(o%360)/90);
+			z = z+deplacement*(4-(o%360)/90);
 		}
 	}
 

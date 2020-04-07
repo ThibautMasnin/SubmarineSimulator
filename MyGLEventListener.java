@@ -19,6 +19,7 @@ public class MyGLEventListener implements GLEventListener
 
 	//////////////////////////////////////////////////////////////////////////////////////////////:
 	// TO FILL
+	private float rotH;
 	private float deplacement = 0.1f;
 	private float x = 0f;
 	private float y = 0.0f;
@@ -121,8 +122,17 @@ public class MyGLEventListener implements GLEventListener
 		Repere repere = new Repere(3,3,3);
 		repere.draw(gl);
 
-		HeliceSM helice = new HeliceSM(0,0,0);
+		/** Sous marin **/
+		BaseSM base = new BaseSM(0,0,0);
+//		base.draw(gl);
+
+		/** Helice **/
+		HeliceSM helice = new HeliceSM(base.xB + 0.15,0,0);
+		gl.glPushMatrix();
+		gl.glRotatef(rotH,1f,0f,0f);
 		helice.draw(gl);
+		gl.glPopMatrix();
+		rotH += 2f;
 
 //---------------------------------------------------------------------------------------------
 		gl.glPushMatrix();

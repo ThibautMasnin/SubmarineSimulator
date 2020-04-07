@@ -8,8 +8,6 @@ import com.jogamp.opengl.awt.GLCanvas;
 import javax.swing.JFrame;
 import com.jogamp.opengl.util.FPSAnimator;
 
-
-
 public class MainFrame extends JFrame {
 
 
@@ -28,7 +26,7 @@ public class MainFrame extends JFrame {
             //double-buffered, with no alpha, stencil, or accumulation buffers. 
             GLCapabilities glCapabilities = new GLCapabilities(GLProfile.getDefault());
 
-            //Création du canvas OpenGL
+            //Crï¿½ation du canvas OpenGL
             //Support du dessin
             //A heavyweight AWT component which provides OpenGL rendering support
             GLCanvas glCanvas = new GLCanvas(glCapabilities);
@@ -38,17 +36,17 @@ public class MainFrame extends JFrame {
             //It responds to the changes in GLCanvas class and to the drawing requests made by them.
             MyGLEventListener glListener = new MyGLEventListener();
 
-            //Callback attachée à la surface dessinable
+            //Callback attachï¿½e ï¿½ la surface dessinable
             glCanvas.addGLEventListener(glListener);
 
-            //Surface dessinable attachée à la fenêtre
+            //Surface dessinable attachï¿½e ï¿½ la fenï¿½tre
             add(glCanvas);
 
-            //Création de l'animator
+            //Crï¿½ation de l'animator
             final FPSAnimator animator = new FPSAnimator(glCanvas, 60);
 
 
-            //Gestion de la fermeture de la fenêtre
+            //Gestion de la fermeture de la fenï¿½tre
             addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosing(WindowEvent e) {
@@ -58,7 +56,7 @@ public class MainFrame extends JFrame {
             });
 
 
-            //Démarrage de l'animator qui se charge d'appeler la fonction display()
+            //Dï¿½marrage de l'animator qui se charge d'appeler la fonction display()
             animator.start();
 
         }

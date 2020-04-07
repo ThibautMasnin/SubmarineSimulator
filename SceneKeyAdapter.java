@@ -24,7 +24,13 @@ class SceneKeyAdapter extends KeyAdapter
         view_rotx = myGLEventListener.getView_rotx();
         view_roty = myGLEventListener.getView_roty();
 
+        if(kc == 86) {
+            //V est tapé, on lance la vue conducteur
+            myGLEventListener.isVueConducteur();
+        }
+
         if(kc == 65) {
+            //A est tapé, on active ou désactive le deplacement automatique
             myGLEventListener.deplacementAuto();
         }
 

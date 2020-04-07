@@ -43,6 +43,7 @@ public class MyGLEventListener implements GLEventListener
 	private boolean mouvementAuto = false;
 	private int nbDeplacement=0;
 	private int choixDeplacement;
+	private boolean vueConducteur = false;
 	//...
 
 	/**
@@ -135,40 +136,48 @@ public class MyGLEventListener implements GLEventListener
 
 //---------------------------------------------------------------------------------------------
 
-		if(mouvementAuto) {
-			deplacerAuto();
+		if(vueConducteur == true)
+		{
+			FirstPerson fp = new FirstPerson();
+			fp.draw(gl);
 		}
-		gl.glPushMatrix();
-		gl.glPushMatrix();
-		gl.glTranslatef(x, y, z);
-		gl.glRotatef(o,0f,1f,0f);
-		/** Repere **/
-		Repere repere = new Repere(10,10,10);
-		repere.draw(gl);
-		/** Sous marin **/
-		BaseSM base = new BaseSM(0,0,0);
-		base.draw(gl);
-		/** Helice **/
-		HeliceSM helice = new HeliceSM(-(base.xB + 0.25),0,0);
-		gl.glRotatef(pivH,0f,1f,0f);
-		gl.glRotatef(rotH,1f,0f,0f);
-		helice.draw(gl);
-		gl.glPopMatrix();
-
-		/** Torpille **/
-		gl.glPushMatrix();
-		if(tire) {
-			p+=op*2;
-			q+=oq*2;
-			gl.glTranslatef(tempx+p, tempy, tempz+q);
-		}
-		else {
+		else
+		{
+			if(mouvementAuto) {
+				deplacerAuto();
+			}
+			gl.glPushMatrix();
+			gl.glPushMatrix();
 			gl.glTranslatef(x, y, z);
 			gl.glRotatef(o,0f,1f,0f);
+			/** Repere **/
+			Repere repere = new Repere(10,10,10);
+			repere.draw(gl);
+			/** Sous marin **/
+			BaseSM base = new BaseSM(0,0,0);
+			base.draw(gl);
+			/** Helice **/
+			HeliceSM helice = new HeliceSM(-(base.xB + 0.25),0,0);
+			gl.glRotatef(pivH,0f,1f,0f);
+			gl.glRotatef(rotH,1f,0f,0f);
+			helice.draw(gl);
+			gl.glPopMatrix();
+
+			/** Torpille **/
+			gl.glPushMatrix();
+			if(tire) {
+				p+=op*2;
+				q+=oq*2;
+				gl.glTranslatef(tempx+p, tempy, tempz+q);
+			}
+			else {
+				gl.glTranslatef(x, y, z);
+				gl.glRotatef(o,0f,1f,0f);
+			}
+			gl.glColor3d(0,0,0);
+			glut.glutSolidSphere(0.2,5,5);
+			gl.glPopMatrix();
 		}
-		gl.glColor3d(0,0,0);
-		glut.glutSolidSphere(0.2,5,5);
-		gl.glPopMatrix();
 
 		/** Poissons **/
 		gl.glPushMatrix();
@@ -424,5 +433,10 @@ public class MyGLEventListener implements GLEventListener
 
 	public void deplacementAuto() {
 		mouvementAuto=!mouvementAuto;
+	}
+
+	public void isVueConducteur()
+	{
+		vueConducteur =! vueConducteur;
 	}
 }
